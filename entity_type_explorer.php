@@ -150,4 +150,4 @@ foreach ($entity_definitions as $definition_id => $definition) {
 $graph .= $links;
 $graph .= "\n}";
 
-echo 'https://dreampuf.github.io/GraphvizOnline/#' . $graph;
+echo 'https://dreampuf.github.io/GraphvizOnline/#' . rawurldecode($graph);
