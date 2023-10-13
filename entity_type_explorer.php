@@ -8,7 +8,8 @@
  *  The URL to the graph on GraphvizOnline visualizer.
  *
  * Configuration:
- *   $entity_types: array of entity types to explore. Ignored if empty.
+ *   $explored_entity_types: array of entity types to explore. Ignored if empty.
+ *   $explored_field_names: array of field names to explore.
  *   $light_colors: array of light colors for each entity type. #a6a6a6 by default.
  *   $colors: array of colors for each entity type. #808080 by default.
  *
@@ -22,7 +23,7 @@
 use Drupal\Core\Config\Entity\ConfigEntityTypeInterface;
 use Drupal\Core\Entity\FieldableEntityInterface;
 
-$entity_types = [
+$explored_entity_types = [
   'block_content',
   'node',
   'media',
@@ -70,7 +71,7 @@ $index = 0;
 $entity_definitions = \Drupal::entityTypeManager()->getDefinitions();
 
 foreach ($entity_definitions as $definition_id => $definition) {
-  if (!empty($entity_types) && !in_array($definition_id, $entity_types)) {
+  if (!empty($explored_entity_types) && !in_array($definition_id, $explored_entity_types)) {
     continue;
   }
 
@@ -96,7 +97,7 @@ foreach ($entity_definitions as $definition_id => $definition) {
 
         $graph .= ' | <' . $field_name . '>' . $field->getLabel() . ' (' . $field_name . ')';
 
-        if ($is_reference && $field_name !== $definition->getKey('bundle') && isset($field_settings['target_type']) && in_array($field_settings['target_type'], $entity_types)) {
+        if ($is_reference && $field_name !== $definition->getKey('bundle') && isset($field_settings['target_type']) && in_array($field_settings['target_type'], $explored_entity_types)) {
           if (isset($field_settings['handler_settings']['target_bundles']) && !empty($field_settings['handler_settings']['target_bundles'])) {
             $target_bundles = $field_settings['handler_settings']['target_bundles'];
 

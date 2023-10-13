@@ -21,7 +21,8 @@ types:
 - Taxonomy
 - Paragraph
 
-You can change this list by editing the `$entity_types` variable in the script.
+You can change this list by editing the `$explored_entity_types` variable in
+the script.
 
 For the visibility of the generated graph, the script is only displaying and
 exploring the following fields:
