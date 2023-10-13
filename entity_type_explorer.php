@@ -13,7 +13,8 @@
  *   $colors: array of colors for each entity type. #808080 by default.
  *
  * Note:
- *   Only the "body", "description", "info" and "field_*" are displayed and explored.
+ *   Only the "body", "name", "description", "info", 'comment' and "field_*" are
+ *   displayed.
  *   Only the fields implementing EntityReferenceFieldItemListInterface or
  *   BlockFieldItemInterface are explored.
  */
@@ -27,6 +28,7 @@ $entity_types = [
   'media',
   'taxonomy_term',
   'paragraph',
+  'comment'
 ];
 
 $light_colors = [
@@ -35,6 +37,7 @@ $light_colors = [
   'media' => '#9aacb5',
   'node' => '#fd9089',
   'taxonomy_term' => '#427ca2',
+  'comment' => '#b8d8be',
 ];
 
 $colors = [
@@ -43,6 +46,15 @@ $colors = [
   'media' => '#c6d0d5',
   'node' => '#fed7d4',
   'taxonomy_term' => '#6da1c4',
+  'comment' => '#e0f0e3',
+];
+
+$explored_field_names = [
+  'name',
+  'description',
+  'info',
+  'body',
+  'comment',
 ];
 
 $graph = 'digraph g {
@@ -77,9 +89,8 @@ foreach ($entity_definitions as $definition_id => $definition) {
 
         $field_name = $field_storage_definition->getName();
 
-        // We keep only the body field and any field_* field.
         // @TODO: Make it configurable.
-        if ($field_name !== 'body' && $field_name !== 'description' && $field_name !== 'info' && !str_starts_with($field_name, 'field_')) {
+        if (!in_array($field_name, $explored_field_names) && !str_starts_with($field_name, 'field_')) {
           continue;
         }
 
@@ -139,4 +150,4 @@ foreach ($entity_definitions as $definition_id => $definition) {
 $graph .= $links;
 $graph .= "\n}";
 
-echo 'https://dreampuf.github.io/GraphvizOnline/#' . rawurlencode($graph);
+echo 'https://dreampuf.github.io/GraphvizOnline/#' . $graph;
