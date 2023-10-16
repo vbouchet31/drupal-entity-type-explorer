@@ -59,11 +59,8 @@ $explored_field_names = [
 ];
 
 $graph = 'digraph g {
-fontname="Helvetica,Arial,sans-serif"
-node [fontname="Helvetica,Arial,sans-serif"]
-edge [fontname="Helvetica,Arial,sans-serif"]
-graph [rankdir = "LR"];
-node [fontsize = "16" shape = "ellipse"];
+graph [rankdir="LR"];
+node [shape="record" style="filled"];
 edge [];';
 $links = '';
 $index = 0;
@@ -144,7 +141,7 @@ foreach ($entity_definitions as $definition_id => $definition) {
       }
     }
 
-    $graph .= '" shape="record" group="' . $definition_id . '" style="filled" color="' . ($colors[$definition_id] ?? '#808080') . '" fillcolor="' . ($light_colors[$definition_id] ?? '#a6a6a6') . '" ];';
+    $graph .= '" group="' . $definition_id . '" color="' . ($colors[$definition_id] ?? '#808080') . '" fillcolor="' . ($light_colors[$definition_id] ?? '#a6a6a6') . '" ];';
   }
 }
 
